@@ -1,4 +1,4 @@
-# Semantic Labelling
+# Data: water masked urban regions
 
 Development of a sophisticated urban water masking algorithm.
 
@@ -19,3 +19,6 @@ WI[WI < 0] = 0
 - Rotterdam
 - Osaka
 - Buenos Aires
+
+### Additional Data
+- Canada 
