@@ -1,4 +1,4 @@
-# Data: water masked urban regions
+# Data
 
 Development of a sophisticated urban water masking algorithm.
 
