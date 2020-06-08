@@ -12,7 +12,7 @@ import torchvision.models as models
 import torchvision.transforms as transforms
 
 # Random cat img taken from Google
-IMG_URL = 'https://www.thesun.co.uk/wp-content/uploads/2019/06/NINTCHDBPICT000498793793.jpg'
+IMG_URL = 'https://i2-prod.mirror.co.uk/incoming/article21957712.ece/ALTERNATES/s615b/0_Labrador-Retrievers-fur-has-changed-from-black-to-white-and-people-are-mesmerised.jpg'
 # Class labels used when training VGG as json, courtesy of the 'Example code' link above.
 LABELS_URL = 'https://s3.amazonaws.com/outcome-blog/imagenet/labels.json'
 
