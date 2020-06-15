@@ -5,14 +5,19 @@ from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 from torch.optim import Adam
 import matplotlib.pyplot as plt
+import torch.nn.functional as F
+from torch.utils.data import DataLoader
+import torchvision.transforms as transforms
+import numpy
 
 
 torch.manual_seed(0)
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 
-# Assign a device
+# Confirm access to a cpu or a gpu
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(device)
 
 # VGG-16 mean and std
 mean = [0.485, 0.456, 0.406]
@@ -27,9 +32,18 @@ transform = transforms.Compose([
 
 # Load in the data
 
-trainset = ""
-testset = ""
+trainset = "data/test_set"
+testset = "data/train_set"
 
+print(len(trainset))
+
+
+trainloader = DataLoader(trainset, batch_size=98, shuffle=True)
+testloader = DataLoader(trainset, batch_size=98, shuffle=True)
+
+for images, labels in trainloader:
+    print(images.size(), labels.size())
+    break
 
 # Ask PyTorch for the pre-trained VGG-16 model
 vgg16 = models.vgg16(pretrained=True)
@@ -82,26 +96,38 @@ for e in range(num_epochs):    # for each predefined epoch
     images = images.to(device)  # Load the images to the device
     labels = labels.to(device)  # Load the labels to the device
 
-    optimizer.zero_grad() # Zero out the gradients at each iter
+    optimiser.zero_grad() # Zero out the gradients at each iter
     logps = vgg16(images)  # Run the batch through the VGG-16 model, to see what predictions the model will provide
     loss = criterion(logps, labels) # Calculate the loss
     loss.backward() # Run the backwards pass
     optimiser.step() # Update the weights using the loss values
 
     batch_loss += loss.item()
-    print(f"Epoch({e}/{num_ephocs} : number ({batch}/{len(trainloader)}))) Batch loss : {loss.item()}")
+    print(f"Epoch({e}/{num_epochs} : number ({batch}/{len(trainloader)}))) Batch loss : {loss.item()}")
 
     print(f"Training loss : {batch_loss/len(trainloader)}")
 
 
 """
 Evaluate the mode
+During training, the output layer randomly sets some of its inputs to zero which effectivley erases them from the 
+network
+This makes the finley trained network more robust
+
 """
 
 vgg16.to("cpu")
 vgg16.eval()
 
 with torch.no_grad():
+    images, labels = next(iter(testloader))
+    logps = vgg16(images)
+
+    output = torch.exp(logps)
+    print(output) # Prints the probabilities
+
+    pred = torch.argmax(output, 1)
+
 
 
 

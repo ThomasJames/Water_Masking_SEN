@@ -31,12 +31,12 @@ def split_image(dim_pix, im, location, dtype, filename, region):
     for i in range((math.floor(im.shape[1] / dim_pix))):
         columns.append(i)
 
-    # Numerically identify the sub-image
+    # Numerically identify the sub-labels
     a = 0
     for i in rows:
         for j in columns:
 
-            # Check for 244 x 244 (Mask) or 244 x 244 x 3 (TC image)
+            # Check for 244 x 244 (Mask) or 244 x 244 x 3 (TC labels)
             if im[0 + (dim_pix * j): dim_pix + (dim_pix * j),
                0 + dim_pix * i: dim_pix + (dim_pix * i)].shape == \
                     (dim_pix, dim_pix) or (dim_pix, dim_pix, 3):
@@ -53,7 +53,7 @@ def split_image(dim_pix, im, location, dtype, filename, region):
 # Function by: Md. Rezwanul Haque (stolen from stack overflow)
 def sp_noise(image, prob):
     '''
-    Add salt and pepper noise to image
+    Add salt and pepper noise to labels
     prob: Probability of the noise
     '''
     output = np.zeros(image.shape, np.uint8)
