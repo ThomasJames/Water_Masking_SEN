@@ -469,7 +469,7 @@ if __name__ == "__main__":
     batchsize = 3
     # Create the deeplabv3 resnet101 model which is pretrained on a subset of COCO train2017, on the 20 categories that are present in the Pascal VOC dataset.
     model = createDeepLabv3()
-    model
+
 
     # Create the experiment directory if not present
     if not os.path.isdir(bpath):

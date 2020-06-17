@@ -93,7 +93,7 @@ print(f"Features shape: {features.shape}, \n"
 
 
 
-"""""           
+"""""
 Loading a pre-trained Vgg-16 network
 Change the classifer layer
 """""
